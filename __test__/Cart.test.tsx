@@ -1,5 +1,3 @@
-import { toHaveTotalPrice } from "../src/app/utils/customMatchers";
-
 test("checks if the shopping cart has the correct total price", () => {
   const items = [
     { id: 1, name: "Product 1", price: 10 },
