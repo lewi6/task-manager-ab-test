@@ -2,7 +2,6 @@ import UserForm from "@/components/Form/UserForm";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
-
 test("it renders 2 input fields on the screen", () => {
   // 1. Render the component
   render(<UserForm />);

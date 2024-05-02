@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import { useTodoStore } from "@/components/Store/DummyTodo";
+import { useTodoStore } from "@/components/Store/useTodoStore";
 export default function TodoList() {
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ["todos"],
@@ -35,7 +35,7 @@ export default function TodoList() {
           className=" flex bg-green"
           onClick={() => setShowCompleted(true)}
         >
-          Completed
+          Completed 🧑
         </button>
       </div>
       {showCompleted &&

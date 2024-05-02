@@ -1,6 +1,6 @@
 "use client";
 
-import { useTodoStore } from "@/components/Store/DummyTodo";
+import { useTodoStore } from "@/components/Store/useTodoStore";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
