@@ -19,7 +19,7 @@ import CardList from "@/components/shared/CardList";
 const i18nNamespaces = ["task"];
 
 export default async function Tasks({ params: { locale } }: FcProps) {
-  const { resources } = await initTranslations(locale, i18nNamespaces);
+  const { resources, t } = await initTranslations(locale, i18nNamespaces);
   return (
     <TranslationsProvider
       locale={locale}
@@ -48,9 +48,12 @@ export default async function Tasks({ params: { locale } }: FcProps) {
             <h1>Website Design</h1>
           </div>
           <p className="inline-flex max-w-max flex-col gap-2 text-sm sm:text-right">
-            <span className="inline-block font-semibold">From 1 April</span>
+            <span className="inline-block font-semibold">
+              {" "}
+              {t("task:dates")}
+            </span>
             <span className="relative inline-block text-gray-500 before:-left-4 before:top-1/2 before:size-1.5 before:-translate-y-1/2 before:rounded-full before:bg-green-500 before:content-[''] sm:before:absolute sm:before:inline-block">
-              Updated 30 min ago
+              {t("task:updates")}
             </span>
           </p>
         </div>

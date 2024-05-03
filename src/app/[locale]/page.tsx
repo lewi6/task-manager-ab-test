@@ -62,9 +62,9 @@ export default async function Tasks({ params: { locale } }: FcProps) {
 
         {/* Card grid */}
         <div className="grid grid-cols-4 gap-4">
-          {[...new Array(30)].map((_, idx) => (
+          {/* {[...new Array(30)].map((_, idx) => (
             <Card key={idx} index={idx} />
-          ))}
+          ))} */}
         </div>
       </main>
     </TranslationsProvider>

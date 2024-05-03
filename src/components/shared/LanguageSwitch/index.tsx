@@ -32,7 +32,7 @@ export default function LanguageSwitch() {
     const newLocale = e;
 
     if (locale === i18nConfig.defaultLocale && !i18nConfig.prefixDefault) {
-      router.push("/" + newLocale + path);
+      router.push(path.replace(`${locale}`, `${newLocale}`));
     } else {
       router.push(path.replace(`${locale}`, `${newLocale}`));
     }

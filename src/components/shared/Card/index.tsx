@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
   Calendar,
   MessageCircleMore,
@@ -23,15 +24,23 @@ import {
 } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useTranslation } from "react-i18next";
+import {
+  TaskStatusType,
+  TaskType,
+  useTaskStore,
+} from "@/components/Store/useTaskStore";
+import { dummyUsers } from "@/lib/dummyUsers";
 
 interface CardProps {
-  index?: number;
-  id?: number;
-  title?: string;
-  users?: number[];
+  index: number;
+  id: number;
+  title: string;
+  status: "completed" | "in-progress" | "todo";
+  users: number[];
 }
 
-export default function Card({ index, id, title }: CardProps) {
+export default function Card({ index, id, title, status }: CardProps) {
   const hasImage = (index as number) % 2 === 0;
 
   return (
@@ -59,10 +68,8 @@ export default function Card({ index, id, title }: CardProps) {
           "pt-4 lg:pt-0": !hasImage,
         })}
       >
-        <Status variant="Completed" />{" "}
-        <Button variant="ghost" className="cursor-pointer hover:bg-transparent">
-          <Ellipsis className="size-4" />
-        </Button>
+        <Status variant={status} />
+        <DropdownHandleStatus taskId={id} taskStatus={status} />
       </div>
       <div className="flex flex-col px-4 lg:px-0">
         <h2 className="text-lg font-semibold">{title}</h2>
@@ -70,14 +77,7 @@ export default function Card({ index, id, title }: CardProps) {
       </div>
       <div className="mt-auto flex items-center justify-between border-t border-gray-100 px-4 pb-4 pt-2 dark:border-gray-700 lg:px-0 lg:pb-0">
         <div className="flex">
-          <AvatarGroup
-            items={Array(3).fill({
-              id: 1,
-              name: "Izere Lewis",
-              designation: "Full-stack dev",
-              image: "https://github.com/shadcn.png",
-            })}
-          />
+          <AvatarGroup items={dummyUsers} />
         </div>
         <Sheet>
           <SheetTrigger>
@@ -191,24 +191,92 @@ export default function Card({ index, id, title }: CardProps) {
 }
 
 interface statusProps {
-  variant: "In Progress" | "Completed" | "To do";
+  variant: TaskStatusType;
   className?: string;
 }
 const Status = ({ variant, className }: statusProps) => {
+  const { t } = useTranslation();
+
   const variants = cva("rounded-lg  px-2 py-1 text-xs  max-w-max", {
     variants: {
       variant: {
-        "To do":
-          "text-orange-500 bg-orange-100 dark:bg-orange-300 dark:text-orange-800",
-        "In Progress":
+        todo: "text-orange-500 bg-orange-100 dark:bg-orange-300 dark:text-orange-800",
+        "in-progress":
           "bg-blue-100 text-blue-500 dark:bg-blue-800 dark:text-blue-300",
-        Completed:
+        completed:
           "bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-300",
       },
     },
-    defaultVariants: {
-      variant: "In Progress",
-    },
+    // defaultVariants: {
+    //   variant: "In Progress",
+    // },
   });
-  return <p className={cn(variants({ variant, className }))}>{variant}</p>;
+  return (
+    <p className={cn(variants({ variant, className }))}>
+      {t(`task:${variant}`)}
+    </p>
+  );
 };
+
+const DropdownHandleStatus = ({
+  taskId,
+  taskStatus,
+}: {
+  taskId: number;
+  taskStatus: TaskStatusType;
+}) => {
+  const { t } = useTranslation();
+
+  const { tasks, setTasks } = useTaskStore();
+
+  const handleChangeStatus = (newStatus: TaskStatusType) => {
+    setTasks(updateTaskStatus(tasks, taskId, newStatus));
+  };
+
+  return (
+    <div className="flex items-center justify-between  border-gray-100 px-4 pb-4 pt-2 dark:border-gray-700 lg:px-0 lg:pb-0">
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Button
+            variant="ghost"
+            className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-300"
+          >
+            <Ellipsis className="size-4" />
+          </Button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content className="flex flex-col gap-4 p-4 mr-12 rounded-lg bg-highlight-blue dark:bg-gray-900">
+          <DropdownMenu.Item className="mr-auto">
+            {t(`task:changeStatus`)}{" "}
+          </DropdownMenu.Item>
+          <DropdownMenu.Separator className="border" />
+          {["completed", "in-progress", "todo"]
+            .filter((status) => status !== taskStatus)
+            .map((status, idx) => (
+              <DropdownMenu.Item
+                key={idx}
+                className="hover:text-primary border-none cursor-pointer"
+                onClick={() => handleChangeStatus(status as TaskStatusType)}
+              >
+                {t(`task:${status}`)}
+              </DropdownMenu.Item>
+            ))}
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+    </div>
+  );
+};
+
+export function updateTaskStatus(
+  tasks: TaskType[],
+  id: number,
+  newStatus: TaskStatusType
+): TaskType[] {
+  return tasks.map((task) => {
+    if (task.id === id) {
+      // Return a new object with the updated status
+      return { ...task, status: newStatus };
+    }
+    // Return the task as is if the id doesn't match
+    return task;
+  });
+}

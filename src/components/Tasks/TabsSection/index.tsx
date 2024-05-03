@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Plus, SlidersHorizontal } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { useTodoStore } from "@/components/Store/useTodoStore";
+import { useTaskStore } from "@/components/Store/useTaskStore";
 
 export default function TabsSection() {
   const { t } = useTranslation();
-  const { show, setShow } = useTodoStore();
+  const { show, tasks, setShow } = useTaskStore();
   return (
     <div className="flex h-full flex-wrap items-center justify-between gap-2 rounded-2xl bg-white px-4 py-4 shadow-sm dark:bg-gray-800 lg:h-20 lg:py-0">
       <div className="flex h-full flex-wrap items-center">
@@ -32,7 +32,11 @@ export default function TabsSection() {
             <span
               className={`inline-block rounded-sm  px-2 py-1 text-xs  transition-all group-hover:bg-highlight-blue group-hover:text-primary  dark:group-hover:bg-gray-700 ${status === show ? `dark:bg-gray-700 text-primary group-hover:text-primary bg-highlight-blue` : `bg-gray-100 text-gray-500 dark:bg-gray-900 dark:text-gray-200`}`}
             >
-              23
+              {
+                tasks.filter((task) =>
+                  status === "all" ? tasks.length : task.status === status
+                ).length
+              }
             </span>
           </Button>
         ))}

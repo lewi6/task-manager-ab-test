@@ -5,5 +5,8 @@
   "all": "All Tasks",
   "todo": "To do",
   "in-progress": "In Progress",
-  "completed": "Completed"
+  "completed": "Completed",
+  "dates": "From 1 April",
+  "updates": "Updated 30 min ago",
+  "changeStatus": "Mark as"
 }

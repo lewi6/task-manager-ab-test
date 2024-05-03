@@ -37,10 +37,10 @@ export const AvatarGroup = ({
         <div
           className="group  relative -mr-4"
           key={item.name}
-          onMouseEnter={() => showTooltip && setHoveredIndex(item.id)}
+          onMouseEnter={() => showTooltip && setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          {hoveredIndex === item.id && (
+          {hoveredIndex === idx && (
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.6 }}
               animate={{

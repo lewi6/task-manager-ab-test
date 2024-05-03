@@ -2,6 +2,7 @@
 
 import { AvatarGroup } from "@/components/shared/AvatarGroup";
 import { Button } from "@/components/ui/button";
+import { dummyUsers } from "@/lib/dummyUsers";
 import {
   BetweenHorizonalStart,
   LayoutGrid,
@@ -17,16 +18,8 @@ export default function AccessSection() {
         <p className="flex items-center gap-2 text-sm font-semibold text-black dark:text-white">
           <LockKeyhole className="size-4" strokeWidth={2} /> Limited Access
         </p>
-        <div className="flex flex-wrap sm:ml-4  sm:border-l sm:px-4">
-          <AvatarGroup
-            showTooltip
-            items={Array(5).fill({
-              id: 1,
-              name: "Izere Lewis",
-              designation: "Full-stack dev",
-              image: "https://github.com/shadcn.png",
-            })}
-          />
+        <div className="flex sm:ml-4  sm:border-l sm:px-4">
+          <AvatarGroup showTooltip items={dummyUsers} />
           <Button
             size="icon"
             className="ml-4 flex min-h-8 min-w-10 items-center justify-center rounded-full border bg-primary text-white"
