@@ -22,7 +22,7 @@ const CardList = () => {
           id: info.id,
           title: info.todo,
           status: info.completed === true ? "completed" : "todo",
-          userId: generateUniqueRandomArray((i + 1) % 3),
+          userId: generateUniqueRandomUsers((i + 1) % 3),
         };
       })
     );
@@ -54,7 +54,7 @@ const getTodos = async () => {
   return res.json();
 };
 
-function generateUniqueRandomArray(length: number): number[] {
+function generateUniqueRandomUsers(length: number): number[] {
   const possibleValues = [1, 2, 3, 4];
   const result: number[] = [];
 

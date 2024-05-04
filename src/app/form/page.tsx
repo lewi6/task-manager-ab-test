@@ -6,8 +6,6 @@ import UserList from "@/components/Form/UserList";
 import { Item } from "@/components/Form/types";
 import { useState } from "react";
 
-
-
 export default function Home() {
   const [users, setUsers] = useState<any[]>([]);
 
@@ -23,7 +21,8 @@ export default function Home() {
 
   return (
     <div className="home">
-  <UserForm onUserAdd={onUserAdd} />
+      <UserForm onUserAdd={onUserAdd} />
+
       <UserList users={users} />
       <ShoppingCart items={items} />
     </div>

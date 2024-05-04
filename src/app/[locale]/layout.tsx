@@ -9,6 +9,7 @@ import initTranslations from "../i18n";
 import Sidebar from "@/components/shared/Sidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Providers from "../../providers/providers";
+import ToastProvider from "@/components/shared/Toast";
 
 export const metadata: Metadata = {
   title: "Todo",
@@ -47,9 +48,7 @@ export default async function RootLayout({
             <div className="min-w-screen flex h-full min-h-screen flex-col lg:pl-28  lg:pt-24">
               <Sidebar />
               <Navbar />
-              {/* <Providers> */}
-
-              {children}
+              <ToastProvider>{children}</ToastProvider>
               {/* </Providers> */}
             </div>
           </ThemeProvider>

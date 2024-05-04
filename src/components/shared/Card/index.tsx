@@ -32,7 +32,7 @@ import {
 } from "@/components/Store/useTaskStore";
 import { dummyUsers } from "@/lib/dummyUsers";
 
-interface CardProps {
+export interface CardProps {
   index: number;
   id: number;
   title: string;
@@ -77,7 +77,7 @@ export default function Card({ index, id, title, status }: CardProps) {
       </div>
       <div className="mt-auto flex items-center justify-between border-t border-gray-100 px-4 pb-4 pt-2 dark:border-gray-700 lg:px-0 lg:pb-0">
         <div className="flex">
-          <AvatarGroup items={dummyUsers} />
+          <AvatarGroup showTooltip items={dummyUsers} />
         </div>
         <Sheet>
           <SheetTrigger>
