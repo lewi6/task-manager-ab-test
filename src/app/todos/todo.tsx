@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import { useTodoStore } from "@/components/Store/DummyTodo";
+import { useTaskStore } from "@/components/Store/useTaskStore";
 export default function TodoList() {
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ["todos"],
@@ -13,12 +13,12 @@ export default function TodoList() {
   const [showCompleted, setShowCompleted] = useState(false);
 
   console.log(data, isLoading, isFetching);
-  const { completedTodos, setCompletedTodos } = useTodoStore();
+  const { completedTodos, setCompletedTodos } = useTaskStore();
 
   //   useEffect(() => {
   //     if (isFetching || isLoading) return;
-  //     setTodos(data?.todos);
-  //   }, [data?.todos, isFetching, isLoading, setTodos]);
+  //     setTasks(data?.todos);
+  //   }, [data?.todos, isFetching, isLoading, setTasks]);
 
   if (isFetching) return <>loading...</>;
   return (
@@ -35,7 +35,7 @@ export default function TodoList() {
           className=" flex bg-green"
           onClick={() => setShowCompleted(true)}
         >
-          Completed
+          Completed 🧑
         </button>
       </div>
       {showCompleted &&

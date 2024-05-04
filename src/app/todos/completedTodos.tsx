@@ -1,6 +1,6 @@
 "use client";
 
-import { useTodoStore } from "@/components/Store/DummyTodo";
+import { useTaskStore } from "@/components/Store/useTaskStore";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
@@ -13,12 +13,12 @@ export default function TodoList() {
   const [showCompleted, setShowCompleted] = useState(false);
 
   console.log(data, isLoading, isFetching);
-  const { completedTodos, setCompletedTodos } = useTodoStore();
+  const { completedTodos, setCompletedTodos } = useTaskStore();
 
   //   useEffect(() => {
   //     if (isFetching || isLoading) return;
-  //     setTodos(data?.todos);
-  //   }, [data?.todos, isFetching, isLoading, setTodos]);
+  //     setTasks(data?.todos);
+  //   }, [data?.todos, isFetching, isLoading, setTasks]);
 
   if (isFetching) return <>loading...</>;
   return (
