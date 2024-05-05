@@ -165,11 +165,6 @@ const DropdownHandleAssignees = () => {
             align="start"
             className="flex flex-col gap-2  p-2 z-100 rounded-lg bg-gray-100 w-72 dark:bg-gray-800"
           >
-            {/* <DropdownMenu.Item className="mr-auto">
-           Assigned to
-          </DropdownMenu.Item> */}
-            {/* <DropdownMenu.Separator className="border" /> */}
-
             {dummyUsers.map((user, idx) => (
               <div
                 key={idx}

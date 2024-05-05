@@ -1,8 +1,8 @@
 import Card, { CardProps } from "@/components/shared/Card";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-describe("Card component", () => {
+describe("Test card component", () => {
   it("renders the card with the correct title and status", () => {
     const mockProps: CardProps = {
       index: 0,
@@ -18,31 +18,36 @@ describe("Card component", () => {
     expect(screen.getByText("Test Task")).toBeInTheDocument();
 
     // Verify the status is displayed
-    expect(screen.getByText("todo")).toBeInTheDocument();
+    expect(screen.getByText("task:completed")).toBeInTheDocument();
   });
 
-  //   it("allows changing the task status via the dropdown menu", () => {
-  //     const mockProps: CardProps = {
-  //       index: 0,
-  //       id: 1,
-  //       title: "Test Task",
-  //       status: "todo",
-  //       users: [1, 2],
-  //     };
+  it("allows changing the task status via the dropdown menu", async () => {
+    const mockProps: CardProps = {
+      index: 0,
+      id: 1,
+      title: "Test Task",
+      status: "todo",
+      users: [1, 2],
+    };
 
-  //     render(<Card {...mockProps} />);
+    render(<Card {...mockProps} />);
 
-  //     // Find the dropdown trigger and click it
-  //     const dropdownTrigger = screen.getByRole("button", {
-  //       name: /change status/i,
-  //     });
-  //     userEvent.click(dropdownTrigger);
+    // Find the dropdown trigger and click it
+    const dropdownTrigger = screen.getByTestId("change-status-button");
 
-  //     // Click the option to change the status to "in-progress"
-  //     const inProgressOption = screen.getByText("in-progress");
-  //     userEvent.click(inProgressOption);
+    userEvent.click(dropdownTrigger);
 
-  //     // Verify the status has been updated
-  //     expect(screen.getByText("in-progress")).toBeInTheDocument();
-  //   });
+    const inProgressOption = await waitFor(() =>
+      screen.getByText(/in-progress/i)
+    );
+
+    // Click the option to change the status to "in-progress"
+
+    userEvent.click(inProgressOption);
+
+    // // Verify the status has been updated
+    await waitFor(() => {
+      expect(screen.getByText("task:in-progress")).toBeInTheDocument();
+    });
+  });
 });
