@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test:unit": "jest",
+    "test:e2e": "playwright test",
     "test:watch": "jest --watch"
   },
   "dependencies": {
@@ -47,6 +48,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.43.1",
     "@svgr/webpack": "^8.1.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^15.0.5",

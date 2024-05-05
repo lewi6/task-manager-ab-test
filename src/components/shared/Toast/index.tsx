@@ -68,7 +68,7 @@ const ToastProvider = ({ children }: { children: React.ReactNode }) => {
           >
             <CheckCircle className="size-4 dark:text-gray-800" />
           </span>
-          <div className="z-30 flex flex-col">
+          <div data-testid="toast-success" className="z-30 flex flex-col">
             <h3 className="text-sm mb-1 [grid-area:_title]">
               {toastInfo.title}
             </h3>

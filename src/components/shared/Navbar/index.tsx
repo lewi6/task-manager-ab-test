@@ -41,7 +41,7 @@ function Navbar() {
           <Bell className="h-5 w-5" strokeWidth={1} />
         </Button>
         <Avatar className="size-14">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src="https://github.com/lewi6.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>

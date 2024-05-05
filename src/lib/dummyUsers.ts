@@ -3,7 +3,7 @@ export const dummyUsers = [
     id: 1,
     name: "Izere Lewis",
     designation: "Full-stack dev",
-    image: "https://github.com/shadcn.png",
+    image: "https://github.com/lewi6.png",
   },
   {
     id: 2,

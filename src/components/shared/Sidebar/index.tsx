@@ -4,13 +4,43 @@ import React from "react";
 
 import useWindowSize from "@/hooks/useWindowSize";
 
-import { Bell, Home, Moon, Plus, Search, Settings } from "lucide-react";
+import {
+  Bell,
+  FileBarChart,
+  FolderOpen,
+  Home,
+  Mail,
+  Moon,
+  Plus,
+  Search,
+  Settings,
+  User,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import Logo from "../../../assets/todo.png";
 import NavLink from "../Navbar/Menu/NavLink";
 import Link from "next/link";
+
+const Links = [
+  {
+    link: "#",
+    icon: <Home className="size-6" strokeWidth={1} />,
+  },
+  {
+    link: "/#",
+    icon: <Mail className="size-6" strokeWidth={1} />,
+  },
+  {
+    link: "/#",
+    icon: <FileBarChart className="size-6" strokeWidth={1} />,
+  },
+  {
+    link: "/#",
+    icon: <FolderOpen className="size-6" strokeWidth={1} />,
+  },
+];
 
 function Sidebar() {
   return (
@@ -26,21 +56,27 @@ function Sidebar() {
           />
         </div>
         <div className="flex w-full flex-col gap-4">
-          {[...new Array(5)].map((_, idx) => (
+          {Links.map((_, idx) => (
             <NavLink
-              href="/home"
+              href={_.link}
               classNames="w-full flex items-center justify-center py-2"
               key={idx}
             >
-              <Home className="size-6" strokeWidth={1} />
+              {_.icon}
             </NavLink>
           ))}
         </div>
       </div>
       <div className="flex flex-col items-center gap-4">
-        {[...new Array(3)].map((_, idx) => (
+        {[...new Array(2)].map((_, idx) => (
           <Avatar className="size-8 object-cover" key={idx}>
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage
+              src={
+                idx % 2 === 0
+                  ? "https://github.com/lewi6.png"
+                  : "https://github.com/shadcn.png"
+              }
+            />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         ))}
@@ -52,11 +88,13 @@ function Sidebar() {
         </Button>
       </div>
       <div className="flex flex-col gap-8">
-        {[...new Array(2)].map((_, idx) => (
-          <Link href="/profile" key={idx}>
-            <Settings className="size-6" strokeWidth={1} />
-          </Link>
-        ))}
+        <Link href="#">
+          <Settings className="size-6" strokeWidth={1} />
+        </Link>
+
+        <Link href="#">
+          <User className="size-6" strokeWidth={1} />
+        </Link>
       </div>
     </div>
   );
