@@ -1,7 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Plus, SlidersHorizontal, Edit, Edit2Icon, Save } from "lucide-react";
+import {
+  Plus,
+  SlidersHorizontal,
+  Edit,
+  Edit2Icon,
+  Save,
+  LoaderIcon,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useTaskStore } from "@/components/Store/useTaskStore";
@@ -16,6 +23,8 @@ import { dummyUsers } from "@/lib/dummyUsers";
 import { filter } from "lodash";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/shared/Toast";
+import { useMutation } from "@tanstack/react-query";
+import { addTodo } from "./util";
 export default function TabsSection() {
   const { t } = useTranslation();
   const { show, tasks, setShow } = useTaskStore();
@@ -23,11 +32,30 @@ export default function TabsSection() {
 
   const [isClosed, setClosed] = useState(false);
 
+  const [title, setTitle] = useState<string>();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: addTodo,
+    onSuccess: (data) => {
+      toast({
+        title: `Task saved successfully !`,
+        description: "Just for showing off 😉 ",
+      });
+      setClosed(true);
+
+      console.log("added successfully:", data);
+    },
+    onError: (error: Error) => {
+      console.error("Error adding todo:", error);
+    },
+  });
+
   const handleSubmit = () => {
-    setClosed(true);
-    toast({
-      title: "Task saved successfully !",
-      description: "Just for showing off 😉 ",
+    mutate({
+      id: 66,
+      todo: ` ${title}` as string,
+      completed: false,
+      userId: 1,
     });
   };
 
@@ -93,19 +121,27 @@ export default function TabsSection() {
                 onClick={handleSubmit}
                 className="flex bg-primary items-center gap-2 rounded-lg text-white  dark:border-gray-700 dark:text-gray-200"
               >
-                <Save className="size-4" /> SAVE
+                {isPending ? (
+                  <LoaderIcon className="size-4" />
+                ) : (
+                  <>
+                    <Save className="size-4" /> SAVE{" "}
+                  </>
+                )}
               </Button>
             </div>
             <form>
               <div className="flex h-36 flex-col gap-2">
-                <Input placeholder="Title" />
+                <Input
+                  placeholder="Title"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
                 <Input placeholder="Description" />
 
                 <div className="flex h-52  flex-col bg-gray-100 dark:bg-gray-800 items-center justify-center rounded-xl border border-dashed  py-8 hover:cursor-pointer dark:border-gray-500 ">
                   <input
                     type="file"
                     hidden
-                    // onChange={handleFileChange}
                     accept="image/png, image/gif, image/jpeg"
                   />
                   <span className="hover:shadow:sm flex h-20 w-20 items-center justify-center rounded-full bg-white dark:bg-hc-darkgray-400">

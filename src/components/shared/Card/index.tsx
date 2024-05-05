@@ -44,10 +44,20 @@ export interface CardProps {
 export default function Card({ index, id, title, status }: CardProps) {
   const hasImage = (index as number) % 2 === 0;
 
+  const randomImage = () => {
+    if (index % 3 === 0)
+      return "https://images.nightcafe.studio/jobs/qxiHumi5J3OYzPzSrKdo/qxiHumi5J3OYzPzSrKdo--1--26lrk.jpg?tr=w-1600,c-at_max";
+    if (index % 4 === 0)
+      return "https://images.nightcafe.studio/jobs/P9ECZ8TdJqytoPpN2LWI/P9ECZ8TdJqytoPpN2LWI--4--f5n4j.jpg?tr=w-1600,c-at_max";
+    else
+      return "https://images.nightcafe.studio/jobs/gOMkXjKkohLnnVLKT8CI/gOMkXjKkohLnnVLKT8CI-nWE3C.jpg?tr=w-1600,c-at_max";
+  };
+
   return (
     <div
+      data-testid="task-card"
       className={cn(
-        "flex max-h-max flex-col gap-4 rounded-xl border border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800 lg:p-4",
+        "class flex max-h-max flex-col gap-4 rounded-xl border border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800 lg:p-4",
         {
           "row-span-2": hasImage,
           "row-span-1": !hasImage,
@@ -57,7 +67,7 @@ export default function Card({ index, id, title, status }: CardProps) {
       {hasImage && (
         <figure className="relative h-64 w-full rounded-xl">
           <Image
-            src="https://images.nightcafe.studio/jobs/29E5bq9HPkoThv56lZBb/29E5bq9HPkoThv56lZBb.jpg?tr=w-1600,c-at_max"
+            src={randomImage() as string}
             alt="task image"
             fill
             fetchPriority="auto"
