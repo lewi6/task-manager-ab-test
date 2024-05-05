@@ -4,7 +4,7 @@ test.describe("Tasks Page ", () => {
   test("loads the main app and navigates to /en/tasks/", async ({ page }) => {
     // Click the link or button that navigates to the tasks page
     // Replace 'Tasks' with the actual text or selector of the link/button
-    await page.goto("http://localhost:3000");
+    await page.goto("https://task-manager-ab-test.vercel.app/");
     await page.click("text=Tasks");
 
     // Verify the URL
