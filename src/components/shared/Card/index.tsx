@@ -10,9 +10,10 @@ import {
   Search,
   Send,
   Star,
+  EllipsisVertical,
   Users,
 } from "lucide-react";
-import Ellipsis from "@/assets/Ellipsis.svg";
+import Ellipsis from "../../../assets/Ellipsis.svg";
 import { AvatarGroup } from "../AvatarGroup";
 import Image from "next/image";
 import {
@@ -59,6 +60,7 @@ export default function Card({ index, id, title, status }: CardProps) {
             src="https://images.nightcafe.studio/jobs/29E5bq9HPkoThv56lZBb/29E5bq9HPkoThv56lZBb.jpg?tr=w-1600,c-at_max"
             alt="task image"
             fill
+            fetchPriority="auto"
             className="rounded-t-xl object-cover lg:rounded-xl"
           />
         </figure>
@@ -135,7 +137,7 @@ export default function Card({ index, id, title, status }: CardProps) {
             <div className="flex h-full flex-col gap-4">
               <div className="row-span-1 flex items-center justify-between">
                 <h3 className="text-base font-semibold">Team Chat</h3>
-                <Ellipsis className="size-4" />
+                <EllipsisVertical className="size-4" />
               </div>
               <div className="hide-scrollbar row-span-4 flex h-[300px] flex-grow flex-col gap-8 overflow-auto px-4 py-4">
                 {[...new Array(10)].map((_, idx) => (
@@ -207,9 +209,6 @@ const Status = ({ variant, className }: statusProps) => {
           "bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-300",
       },
     },
-    // defaultVariants: {
-    //   variant: "In Progress",
-    // },
   });
   return (
     <p className={cn(variants({ variant, className }))}>
@@ -239,12 +238,16 @@ const DropdownHandleStatus = ({
         <DropdownMenu.Trigger>
           <Button
             variant="ghost"
+            data-testid="change-status-button"
             className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-300"
           >
-            <Ellipsis className="size-4" />
+            <EllipsisVertical className="size-4" />
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content className="flex flex-col gap-4 p-4 mr-12 rounded-lg bg-highlight-blue dark:bg-gray-900">
+        <DropdownMenu.Content
+          align="end"
+          className="flex flex-col gap-4 p-4 rounded-lg bg-highlight-blue dark:bg-gray-900"
+        >
           <DropdownMenu.Item className="mr-auto">
             {t(`task:changeStatus`)}{" "}
           </DropdownMenu.Item>

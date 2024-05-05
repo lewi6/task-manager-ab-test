@@ -21,4 +21,4 @@ jobs:
     - name: Build app
       run: pnpm build 
     - name: Run Unit tests
-      run: pnpm test
+      run: pnpm test:unit
